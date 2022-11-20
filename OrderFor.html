@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon"
+              href="https://img.favpng.com/25/20/4/electronics-icon-chip-icon-cpu-icon-Kn3s14cZ.jpg">
+        <meta http-equiv="X-UA-Compatible"
+              content="IE=edge">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0">
+        <title>Computer Parts Store</title>
+    </head>
+
+    <body>
+        <div id="app"
+             class="font-mono">
+            <header>
+                <nav
+                     class="relative w-full flex flex-wrap items-center justify-between py-4 bg-gray-900 text-gray-500 
+                    hover:text-gray-700 focus:text-gray-700 shadow-lg navbar navbar-light">
+                    <div class="flex-grow items-center flex"
+                         id="navbarSupportedContent">
+                        <a class=" flex items-center text-gray-200 hover:text-gray-200 focus:text-gray-200 mt-2 lg:mt-0 mr-1 invert"
+                           href="#">
+                            <img src="https://cdn4.iconfinder.com/data/icons/computer-hardware-and-devices-1/512/cpu-512.png"
+                                 style="height: 50px"
+                                 alt=""
+                                 loading="lazy" />
+                        </a>
+                        <a class="text-xl text-gray-200"
+                           href="#">Computer Parts Store</a>
+                    </div>
+                    <!-- Collapsible wrapper -->
+                    <!-- Right elements -->
+                    <div class="flex items-center">
+                        <div class="dropdown relative mr-2">
+                            <button class="text-gray-200 hover:text-gray-500 mr-4 dropdown-toggle-arrow flex items-center"
+                                    id="shoppingCardButton"
+                                    data-bs-toggle="shoppingCart"
+                                    data-bs-target="#shoppingCart"
+                                    aria-controls="offcanvasRight"
+                                    @click="toggleShoppingCart">
+                                <svg aria-hidden="true"
+                                     focusable="false"
+                                     data-prefix="fas"
+                                     data-icon="shopping-cart"
+                                     class="w-4"
+                                     role="img"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 576 512">
+                                    <path fill="currentColor"
+                                          d="M528.12 301.319l47.273-208C578.806 
+                                          78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758
+                                          8.021 137.93 0 126.529 0H24C10.745 
+                                        0 0 10.745 0 24v16c0 13.255 10.745 24 
+                                        24 24h69.883l70.248 343.435C147.325 417.1 
+                                        136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 
+                                        56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 
+                                        426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 
+                                        56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 
+                                        0 20.92-7.754 23.403-18.681z">
+                                    </path>
+                                </svg>
+                                <span class="text-white bg-red-700 absolute rounded-full text-xs -mt-2.5 ml-2 py-0 px-1.5"
+                                      v-if="countItems()">{{countItems()}}</span>
+                            </button>
+                            <!-- SHOPPING CART  -->
+                            <div class="offcanvas offcanvas-end fixed bottom-0 flex flex-col max-w-full bg-white bg-clip-padding 
+                            shadow-md outline-none transition duration-300 ease-in-out text-gray-700 top-0 right-0 border-none w-110 z-10"
+                                 tabindex="-1"
+                                 id="shoppingCart"
+                                 aria-labelledby="shoppingCardButton"
+                                 v-if="isCartVisible">
+                                <div
+                                     class="offcanvas-header flex items-center justify-between p-4 border-b-2">
+                                    <h5 class="flex offcanvas-title mb-0 leading-normal font-semibold gap-2"
+                                        id="offcanvasRightLabel">
+                                        <svg aria-hidden="true"
+                                             focusable="false"
+                                             data-prefix="fas"
+                                             data-icon="shopping-cart"
+                                             class="w-4"
+                                             role="img"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             viewBox="0 0 576 512">
+                                            <path fill="currentColor"
+                                                  d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 
+                                                  551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 
+                                                  126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 
+                                                  24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 
+                                                  136 456c0 30.928 25.072 56 56 56s56-25.072 
+                                                  56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 
+                                                  426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 
+                                                  56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 
+                                                  0 20.92-7.754 23.403-18.681z">
+                                            </path>
+                                        </svg> Shopping Cart
+                                    </h5>
+                                    <button type="button"
+                                            class="btn-close box-content w-4 h-4 p-2 -my-5 -mr-2 text-black border-none rounded-none-none opacity-50 
+                                        focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                                            data-bs-dismiss="offcanvas"
+                                            aria-label="Close"
+                                            @click="toggleShoppingCart">X</button>
+                                </div>
+                                <div
+                                     class="offcanvas-body flex-grow p-4 overflow-y-auto">
+                                    <!--List of Items -->
+                                    <div
+                                         class="flex flex-col">
+                                        <div
+                                             class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                            <div
+                                                 class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                                                <div
+                                                     class="overflow-hidden">
+                                                    <table
+                                                           class="min-w-full">
+                                                        <thead
+                                                               class="border-b">
+                                                            <tr>
+                                                                <th scope="col"
+                                                                    class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                                    #
+                                                                </th>
+                                                                <th scope="col"
+                                                                    class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                                    Item
+                                                                </th>
+                                                                <th scope="col"
+                                                                    class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                                    Quantity
+                                                                </th>
+                                                                <th scope="col"
+                                                                    class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                                    Price
+                                                                </th>
+                                                                <th scope="col"
+                                                                    class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                                    Total
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="border-b"
+                                                                v-for="(item,index) in shoppingCart">
+                                                                <td
+                                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                                    {{index+1}}
+                                                                </td>
+                                                                <td
+                                                                    class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap">
+                                                                    {{item.name}}
+                                                                </td>
+                                                                <td
+                                                                    class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                                    {{item.quantity}}
+                                                                </td>
+                                                                <td
+                                                                    class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                                    €{{item.price}}
+                                                                </td>
+                                                                <td
+                                                                    class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                                    €{{item.total}}
+                                                                </td>
+                                                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap cursor-pointer"
+                                                                    @click="()=>removeFromCart(item)">
+                                                                    X
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                         class="w-full m-auto pt-2.5 pb-2 mt-3 ">
+                                        Total:
+                                        <b>{{sumTotals()}}</b>
+                                    </div>
+                                    <!-- Buy Button -->
+                                    <div
+                                         class="flex space-x-2 justify-center mt-5">
+                                        <button type="button"
+                                                @click="confirmOrder"
+                                                class="inline-block px-6 pt-2.5 pb-2 
+                                                bg-gray-800 text-white 
+                                                font-medium text-s leading-normal 
+                                                uppercase rounded-none shadow-md hover:bg-gray-700 
+                                                hover:shadow-lg focus:bg-gray-700 focus:shadow-lg 
+                                                focus:outline-none focus:ring-0 active:bg-gray-800 
+                                                active:shadow-lg transition duration-150 ease-in-out f
+                                                lex align-center">
+                                            CHECKOUT
+                                        </button>
+                                    </div>
+                                    <div
+                                         class="flex space-x-2 justify-center mt-5">
+                                        <button type="button"
+                                                @click="addMoreItems"
+                                                class="inline-block px-6 pt-2.5 pb-2 
+                                                bg-gray-700 text-white font-medium 
+                                                text-xs leading-normal uppercase 
+                                                rounded-none shadow-md hover:bg-gray-700 
+                                                hover:shadow-lg focus:bg-gray-700 
+                                                focus:shadow-lg focus:outline-none 
+                                                focus:ring-0 active:bg-gray-800 
+                                                active:shadow-lg transition 
+                                                duration-150 ease-in-out flex 
+                                                align-center">
+                                            ADD MORE ITEMS
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+            <!-- ITEMS SELECTOR -->
+            <div id="itemSelector"
+                 class="flex flex-wrap m-5"
+                 v-if="isSelectorVisible">
+                <h3
+                    class="font-small leading-tight text-3xl m-auto mt-4 p-2 text-gray-600">
+                    Please Select the Items You would Like
+                    to buy</h3>
+                <div
+                     class="grid justify-center m-automt-md-20 sm:grid-cols-2 grid-cols-1">
+                    <div
+                         class="flex flex-wrap justify-center">
+                        <img :src="selectorOptions.image?selectorOptions.image:'https://www.rmofmarquis.com/wp-content/themes/rmmarquis/images/no-image-available.png'"
+                             class="p-1 m-5 bg-white border rounded-none max-w-sm"
+                             alt="Computer-part" />
+                    </div>
+                    <div
+                         class="grid m-5 justify-centermt-md-20 sm:grid-cols-2 grid-cols-1 gap-3">
+                        <!-- Categories DropDown-->
+                        <div class="mb-3 w-full m-auto">
+                            <select class="form-select block w-full px-3 py-1.5 text-base font-normal text-gray-700 
+                                bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded-none transition 
+                                ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:outline-none"
+                                    aria-label="Categories"
+                                    v-model="selectorOptions.category">
+                                <option disabled
+                                        value=""
+                                        selected>Category
+                                </option>
+                                <option :value="category"
+                                        v-for="category in categories()">
+                                    {{category}}
+                                </option>
+                            </select>
+                        </div>
+                        <!-- Manufacturer DropDown-->
+                        <div class="mb-3 w-full m-auto">
+                            <select class="form-select block w-full px-3 py-1.5 text-base font-normal text-gray-700 
+                                bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded-none transition 
+                                ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:outline-none"
+                                    aria-label="Manufacturer"
+                                    v-model="selectorOptions.manufacturer">
+                                <option disabled
+                                        value=""
+                                        selected>
+                                    Manufacturer </option>
+                                <option :value="manufacturer"
+                                        v-for="manufacturer in manufacturer()">
+                                    {{manufacturer}}
+                                </option>
+                            </select>
+                        </div>
+                        <!-- Item DropDown-->
+                        <div class="mb-3 w-full m-auto">
+                            <select class="form-select block w-full px-3 py-1.5 text-base font-normal text-gray-700 
+                                bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded-none transition 
+                                ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:outline-none"
+                                    aria-label="Item"
+                                    v-model="selectorOptions.index"
+                                    @change="setItem">
+                                <option disabled
+                                        value=""
+                                        selected>Item
+                                </option>
+                                <option :value="index"
+                                        v-for="(item,index) in items()">
+                                    {{item.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <!-- Model Number Display-->
+                        <div
+                             class="form-control mb-3 w-full m-auto">
+                            <label for="floatingInput"
+                                   class="form-floating text-gray-700">Model</label>
+                            <input type="text"
+                                   class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-gray-100 
+                                bg-clip-padding border border-solid border-gray-300 rounded-none transition ease-in-out m-0 
+                                focus:text-gray-700 focus:bg-white focus:border-gray-600 focus:outline-none  "
+                                   id="exampleFormControlInput5"
+                                   :value="selectorOptions.model"
+                                   aria-label="Model"
+                                   readonly />
+                        </div>
+                        <!-- Quantity Input-->
+                        <div
+                             class="form-floating mb-3 w-full m-auto">
+                            <label for="floatingInput"
+                                   class="text-gray-700">Quantity</label>
+                            <input type="number"
+                                   class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-gray-100
+                                     bg-clip-padding border border-solid border-gray-300 rounded-none transition ease-in-out 
+                                     m-0 focus:text-gray-700 focus:bg-white focus:border-gray-600 focus:outline-none  "
+                                   id="exampleFormControlInput5"
+                                   v-model="selectorOptions.quantity"
+                                   aria-label="readonly input example"
+                                   :readonly="selectorOptions.name ===''" />
+                        </div>
+                        <!-- Single Price Display-->
+                        <div
+                             class="form-floating mb-3 w-full m-auto">
+                            <label for="floatingInput"
+                                   class="text-gray-700">Price
+                                €</label>
+                            <input type="number"
+                                   class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-gray-100 
+                                bg-clip-padding border border-solid border-gray-300 rounded-none transition ease-in-out m-0 
+                                focus:text-gray-700 focus:bg-white focus:border-gray-600 focus:outline-none  "
+                                   id="exampleFormControlInput5"
+                                   :value="selectorOptions.price"
+                                   aria-label="Model"
+                                   readonly />
+                        </div>
+                        <div
+                             class="w-full m-auto pt-2.5 pb-2">
+                            Total:
+                            <b>€{{currentTotal()}}</b>
+                        </div>
+                        <!-- Add button -->
+                        <div
+                             class="justify-center mt-5 w-25">
+                            <button type="button"
+                                    @click="addToCart"
+                                    v-if="currentTotal()"
+                                    class="flex justify-center w-full pt-2.5 pb-2 bg-gray-800 text-white font-medium text-xs leading-normal 
+                                    uppercase rounded-none shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg 
+                                    focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out flex align-center">
+                                <svg class="w-5 mr-2"
+                                     role="img"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          fill="currentColor"
+                                          stroke-width="2"
+                                          d="M12 6v6m0 0v6m0-6h6m-6 0H6">
+                                    </path>
+                                </svg>
+                                <span>ADD TO CART</span>
+                            </button>
+                            <button type="button"
+                                    @click="()=>{addToCart();confirmOrder();}"
+                                    v-if="countItems()"
+                                    class="w-full flex justify-center mt-3 pt-2.5 pb-2 bg-gray-800 text-white font-small text-xs leading-normal 
+                                        uppercase rounded-none shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg 
+                                        focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out flex align-center">
+                                <span>CHECKOUT</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- SUBMIT ORDERS -->
+            <div id="SubmitPage"
+                 class="flex flex-col m-5"
+                 v-if="isConfirmationVisible">
+                <h3
+                    class="font-small leading-tight text-3xl m-auto mt-4 p-2 text-gray-600">
+                    Please Confirm Your Order </h3>
+                <div class="m-automt-md-10">
+                    <h5
+                        class="font-small leading-tight text-xl mt-4 text-gray-600">
+                        BILLING ADDRESS </h5>
+                    <div
+                         class="grid justify-center m-auto mt-5 sm:grid-cols-2 grid-cols-1 gap-5">
+                        <!-- USER INFORMATION -->
+                        <!-- Name and Surname Input -->
+                        <div class="relative">
+                            <input id="name"
+                                   name="name"
+                                   type="text"
+                                   class="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-gray-600"
+                                   placeholder="First Name" />
+                            <label for="name"
+                                   class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                                First Name </label>
+                        </div>
+                        <div class="relative">
+                            <input id="lastName"
+                                   name="lastName"
+                                   type="text"
+                                   class="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-gray-600"
+                                   placeholder="Last Name" />
+                            <label for="lastName"
+                                   class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                                Last Name </label>
+                        </div>
+                        <!-- Address Input -->
+                        <div class="relative">
+                            <input id="country"
+                                   name="country"
+                                   type="text"
+                                   class="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-gray-600"
+                                   placeholder="Country" />
+                            <label for="country"
+                                   class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                                Country </label>
+                        </div>
+                        <div class="relative">
+                            <input id="city"
+                                   name="city"
+                                   type="text"
+                                   class="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-gray-600"
+                                   placeholder="City" />
+                            <label for="city"
+                                   class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                                City </label>
+                        </div>
+                        <div class="relative">
+                            <input id="state"
+                                   name="state"
+                                   type="text"
+                                   class="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-gray-600"
+                                   placeholder="State/Province" />
+                            <label for="state"
+                                   class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                                State/Province </label>
+                        </div>
+                        <div class="relative">
+                            <input id="postalCode"
+                                   name="postalCode"
+                                   type="text"
+                                   class="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-gray-600"
+                                   placeholder="ZIP / Postal code" />
+                            <label for="postalCode"
+                                   class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                                ZIP / Postal code </label>
+                        </div>
+                        <div class="relative col-span-2">
+                            <input id="street"
+                                   name="street"
+                                   type="text"
+                                   class="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-gray-600"
+                                   placeholder="Street" />
+                            <label for="street"
+                                   class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                                Street </label>
+                        </div>
+                        <!-- Email Input -->
+                        <div class="relative col-span-2">
+                            <input id="email"
+                                   name="email"
+                                   type="email"
+                                   class="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-gray-600"
+                                   placeholder="Email Address" />
+                            <label for="email"
+                                   class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                                Email Address </label>
+                        </div>
+                    </div>
+                    <!-- PAYMENT INFORMATION -->
+                    <div class="m-automt-md-10">
+                        <h5
+                            class="font-small leading-tight text-xl mt-4 text-gray-600">
+                            PAYMENT INFORMATION </h5>
+                        <!-- Credit Card input-->
+                        <div
+                             class="grid justify-center m-auto mt-5 sm:grid-cols-2 grid-cols-1 gap-5">
+                            <div
+                                 class="relative col-span-2">
+                                <input id="cardHolder"
+                                       name="cardHolder"
+                                       type="text"
+                                       class="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-gray-600"
+                                       placeholder="CardHolder Full Name" />
+                                <label for="cardHolder"
+                                       class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                                    CardHolder Full Name
+                                </label>
+                            </div>
+                            <div
+                                 class="relative col-span-2">
+                                <input id="cardNumber"
+                                       name="cardNumber"
+                                       type="text"
+                                       class="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-gray-600"
+                                       placeholder="Card Number" />
+                                <label for="cardNumber"
+                                       class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                                    Card Number </label>
+                            </div>
+                            <div class="relative">
+                                <input id="expiry"
+                                       name="expiry"
+                                       type="text"
+                                       class="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-gray-600"
+                                       placeholder="Expire Date" />
+                                <label for="expiry"
+                                       class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                                    Expire Date </label>
+                            </div>
+                            <div class="relative">
+                                <input id="cvv"
+                                       name="cvv"
+                                       type="password"
+                                       class="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-gray-600"
+                                       placeholder="CVC/CVV" />
+                                <label for="cvv"
+                                       class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                                    CVC/CVV </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SUMMERY-->
+                    <div class="m-automt-md-10">
+                        <h5
+                            class="font-small leading-tight text-xl mt-4 text-gray-600">
+                            ORDER SUMMERY </h5>
+                        <!-- Summery -->
+                        <div class="flex flex-col">
+                            <div
+                                 class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div
+                                     class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                                    <div
+                                         class="overflow-hidden">
+                                        <table
+                                               class="min-w-full">
+                                            <thead
+                                                   class="border-b">
+                                                <tr>
+                                                    <th scope="col"
+                                                        class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                        #
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                        Item
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                        Quantity
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                        Price
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                        Total
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="text-sm font-medium text-gray-900 py-4 text-left">
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="border-b"
+                                                    v-for="(item,index) in shoppingCart">
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                        {{index+1}}
+                                                    </td>
+                                                    <td
+                                                        class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap">
+                                                        {{item.name}}
+                                                    </td>
+                                                    <td
+                                                        class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                        {{item.quantity}}
+                                                    </td>
+                                                    <td
+                                                        class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                        €{{item.price}}
+                                                    </td>
+                                                    <td
+                                                        class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                        €{{item.total}}
+                                                    </td>
+                                                    <td class="text-sm text-gray-900 font-light py-4 whitespace-nowrap cursor-pointer"
+                                                        @click="()=>removeFromCart(item)">
+                                                        X
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                             class="w-full m-auto pt-2.5 pb-2 mt-3 ">
+                            Total: <b>€ {{sumTotals()}}</b>
+                        </div>
+                        <div
+                             class="flex space-x-2 justify-center mt-5">
+                            <button type="button"
+                                    @click="submitOrder"
+                                    class="inline-block px-6 pt-2.5 pb-2 bg-gray-800 text-white font-medium text-s leading-normal 
+                                    uppercase rounded-none shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg 
+                                    focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out flex align-center">
+                                CONFIRM PURCHASE </button>
+                            <div
+                                 class="flex space-x-2 justify-center mt-5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--ORDER SUCCESS-->
+            <!-- Order Success Information-->
+            <div class="flex space-x-2 justify-center fixed z-10 top-10 left-0 right-0"
+                 v-if="isOrderSuccess">
+                <div class="bg-white shadow-lg mx-auto w-96 max-w-full text-sm pointer-events-auto bg-clip-padding rounded-lg block"
+                     id="static-example"
+                     role="alert"
+                     aria-live="assertive"
+                     aria-atomic="true"
+                     data-mdb-autohide="false">
+                    <div
+                         class=" bg-white flex justify-between items-center py-2 px-3 bg-clip-padding border-b border-gray-200 rounded-t-lg">
+                        <p
+                           class="font-bold flex text-green-500">
+                            <svg aria-hidden="true"
+                                 focusable="false"
+                                 data-prefix="fas"
+                                 data-icon="check-circle"
+                                 class="w-4 h-4 mr-2 fill-current"
+                                 role="img"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 512 512">
+                                <path fill="currentColor"
+                                      d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z">
+                                </path>
+                            </svg> ORDER CONFIRMED
+                        </p>
+                        <div class="flex items-center">
+                            <button type="button"
+                                    class="btn-close box-content w-4 h-4 ml-2 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                                    data-mdb-dismiss="toast"
+                                    aria-label="Close"
+                                    @click="toggleSuccessMessage">X</button>
+                        </div>
+                    </div>
+                    <div
+                         class="p-3 bg-white rounded-b-lg break-words text-gray-700">
+                        THANK YOU FOR MAKING A PURCHASE
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <!-- Importing Vue Library -->
+    <script src="https://unpkg.com/vue"></script>
+    <!-- Importing Style Script -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Application Code-->
+    <script>
+        const items = {
+            "Processors":
+            {
+                "Intel": [
+                    {
+                        image: "https://90a1c75758623581b3f8-5c119c3de181c9857fcb2784776b17ef.ssl.cf2.rackcdn.com/0641917_326652.jpg",
+                        name: "Intel Core i7-12700K",
+                        model: "436212",
+                        price: 299.99,
+                    },
+                    {
+                        image: "https://90a1c75758623581b3f8-5c119c3de181c9857fcb2784776b17ef.ssl.cf2.rackcdn.com/0641915_326694.jpg",
+                        name: "Intel Core i9-12900K",
+                        model: "418212",
+                        price: 449.99,
+                    },
+                    {
+                        image: "https://90a1c75758623581b3f8-5c119c3de181c9857fcb2784776b17ef.ssl.cf2.rackcdn.com/0641917_326652.jpg",
+                        name: "Intel Core i5-10700K",
+                        model: "167212",
+                        price: 149.99,
+                    },
+                ],
+                "AMD": [
+                    {
+                        image: "https://90a1c75758623581b3f8-5c119c3de181c9857fcb2784776b17ef.ssl.cf2.rackcdn.com/0660754_518951.jpg",
+                        name: "AMD Ryzen Threadripper PRO",
+                        model: "5955WX",
+                        price: 1299.99,
+                    },
+                ],
+            },
+            "MotherBoards": {
+                "ASUS": [
+                    {
+                        image: "https://90a1c75758623581b3f8-5c119c3de181c9857fcb2784776b17ef.ssl.cf2.rackcdn.com/0653702_443572.jpg",
+                        name: "ASUS Z790 ROG Maximus Hero Intel LGA 1700 ATX Motherboard",
+                        model: "443572",
+                        price: 629.99,
+                    }, {
+                        image: "https://90a1c75758623581b3f8-5c119c3de181c9857fcb2784776b17ef.ssl.cf2.rackcdn.com/0608574_955807.jpg",
+                        name: "ASUS X570 TUF Gaming Plus (WIFI) AMD AM4 ATX Motherboard",
+                        model: "955807",
+                        price: 209.99,
+                    },
+                ],
+            },
+            "GraphicCards": {
+                "Intel": [
+                    {
+                        image: "https://90a1c75758623581b3f8-5c119c3de181c9857fcb2784776b17ef.ssl.cf2.rackcdn.com/0660239_513648.jpg",
+                        name: "Intel Arc A770 Dual Fan 16GB GDDR6 PCIe 4.0 Graphics Card",
+                        model: "513648",
+                        price: 349.99,
+                    },
+                ],
+                "ASUS": [
+                    {
+                        image: "https://90a1c75758623581b3f8-5c119c3de181c9857fcb2784776b17ef.ssl.cf2.rackcdn.com/0653702_443572.jpg",
+                        name: "ASUS NVIDIA GeForce RTX 4080 ",
+                        model: "520072",
+                        price: 1399.99,
+                    }, {
+                        image: "https://90a1c75758623581b3f8-5c119c3de181c9857fcb2784776b17ef.ssl.cf2.rackcdn.com/0608574_955807.jpg",
+                        name: "ASUS NVIDIA GeForce RTX 3070",
+                        model: "283176",
+                        price: 639.99,
+                    },
+                ],
+            },
+        }
+
+        const app = {
+            data() {
+                return {
+                    isOrderSuccess: false,
+                    isCartVisible: false,
+                    isConfirmationVisible: false,
+                    isSelectorVisible: true,
+                    shoppingCart: [],
+                    shoppingCartSum: 0,
+                    selectorOptions: {
+                        category: "",
+                        manufacturer: "",
+                        index: "",
+                        name: "",
+                        model: "",
+                        quantity: 1,
+                        price: 0,
+                        total: 0,
+                    },
+                    total: 0,
+                }
+            },
+            methods: {
+                isOrderSuccess: false,
+                isCartVisible: false,
+                isConfirmationVisible: false,
+                isSelectorVisible: true,
+                shoppingCart: [],
+                shoppingCartSum: 0,
+                selectorOptions: {
+                    category: "",
+                    manufacturer: "",
+                    index: "",
+                    name: "",
+                    model: "",
+                    image: "",
+                    quantity: 1,
+                    price: 0,
+                    total: 0,
+                },
+                total: 0,
+                toggleShoppingCart() {
+                    this.isCartVisible = !this.isCartVisible
+                },
+                toggleSuccessMessage() {
+                    this.isOrderSuccess = !this.isOrderSuccess
+                },
+                setItem(event) {
+                    const index = event.target.value;
+                    if (this.selectorOptions.category && this.selectorOptions.manufacturer) {
+                        const item = items[this.selectorOptions.category][this.selectorOptions.manufacturer][index]
+                        this.selectorOptions.model = item.model;
+                        this.selectorOptions.name = item.name;
+                        this.selectorOptions.image = item.image;
+                        this.selectorOptions.price = item.price;
+                    } else {
+                        this.selectorOptions.model = "";
+                        this.selectorOptions.image = "";
+                        this.selectorOptions.price = "";
+                    }
+                },
+                manufacturer() {
+                    if (this.selectorOptions.category) {
+                        return Object.keys(items[this.selectorOptions.category])
+                    }
+                    return [];
+                },
+                currentTotal() {
+                    this.selectorOptions.total = this.selectorOptions.quantity * this.selectorOptions.price;
+                    return this.selectorOptions.total;
+                },
+                categories() {
+                    return Object.keys(items)
+                },
+                items() {
+                    if (this.selectorOptions.category && this.selectorOptions.manufacturer) {
+                        return items[this.selectorOptions.category][this.selectorOptions.manufacturer]
+                    }
+                },
+                addToCart() {
+                    if (this.selectorOptions.total) {
+                        this.shoppingCart.push(this.selectorOptions);
+                        this.selectorOptions = {
+                            category: "",
+                            manufacturer: "",
+                            name: "",
+                            model: "",
+                            image: "",
+                            quantity: 1,
+                            price: 0,
+                            total: 0,
+                        }
+                    }
+                },
+                countItems() {
+                    return this.shoppingCart.reduce((sum, { quantity }) => sum + quantity, 0);
+                },
+                removeFromCart(item) {
+                    const index = this.shoppingCart.indexOf(item, 0);
+                    if (index > -1) {
+                        this.shoppingCart.splice(index, 1);
+                    }
+                },
+                sumTotals() {
+                    this.total = this.shoppingCart.reduce((sum, item) => sum + item.total, 0);
+                    return this.total;
+                },
+                confirmOrder() {
+                    this.isConfirmationVisible = true;
+                    this.isSelectorVisible = false;
+                },
+                addMoreItems() {
+                    this.isSelectorVisible = true;
+                    this.isConfirmationVisible = false;
+                    this.isCartVisible = false;
+                },
+                submitOrder() {
+                    if (this.sumTotals() && this.isConfirmationVisible) {
+                        this.isOrderSuccess = true;
+                        this.isCartVisible = false;
+                        this.isConfirmationVisible = false;
+                        this.isSelectorVisible = true;
+                        this.shoppingCart = [];
+                        this.shoppingCartSum = 0;
+                        this.selectorOptions =
+                        {
+                            category: "",
+                            manufacturer: "",
+                            name: "",
+                            model: "",
+                            quantity: 0,
+                            price: 0,
+                            total: 0,
+                        }
+                        this.total = 0;
+                    }
+                }
+            }
+        }
+
+        Vue.createApp(app).mount("#app");
+
+    </script>
+
+</html>
